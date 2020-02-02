@@ -1,7 +1,6 @@
 import ctypes
 from typing import List, Any, Union
 
-
 class Sonic (object):
     def __init__(self):
         self.sonic = ctypes.CDLL ("/usr/local/lib/libsonic.so")
