@@ -1,0 +1,67 @@
+#!/bin/bash
+
+BUILD_DIR='build'
+SO_NAME="$BUILD_DIR/libsonic.so"
+
+function build() {
+    mkdir -p $BUILD_DIR
+    echo "building sonic.c..."
+    gcc -shared -Wl,-soname,libsonic -o $SO_NAME -fPIC -lwiringPi -lpigpio sonic.c
+    return $?
+}
+
+function cleanup() {
+    if [ ! $BUILD_DIR == '' ]; then
+        rm -rf $BUILD_DIR
+    fi
+}
+
+function is_lib_installed() {
+    ldconfig -p | grep $1
+    return $?
+}
+
+function install_wiringpi() {
+    echo "wiringpi should be preinstalled on raspbian."
+}
+
+function install_pigpio() {
+    mkdir -p "$BUILD_DIR/pigpio"
+    pushd "$BUILD_DIR/pigpio"
+
+    wget https://github.com/joan2937/pigpio/archive/master.zip
+    unzip master.zip
+    cd pigpio-master
+    make
+    sudo make install
+
+    popd
+}
+
+function install() {
+    cleanup
+
+    if [[ ! $(is_lib_installed 'wiringpi') ]]; then
+        echo "installing wiringpi..."
+        install_wiringpi
+    fi
+
+    if [[ ! $(is_lib_installed 'pigpio') ]]; then
+        echo "installing pigpio..."
+        install_pigpio
+    fi
+     
+    if [[ $(build) == 0 ]]; then
+        echo "copying to /usr/local/lib"
+        cp $SO_NAME /usr/local/lib/libsonic.so
+
+        echo "setting user rights..."
+        chmod 0755 /usr/local/lib/libsonic.so
+    else
+        echo "errors occurred. stopping installation."
+    fi
+
+    echo "done!"
+}
+
+install
