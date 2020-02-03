@@ -1,4 +1,4 @@
-# Ultrasonic module by Jannik Beibl
+# Octosonar Ultrasonic module by Jannik Beibl
 
 ## Installation:
 
