@@ -12,7 +12,7 @@ function build() {
 
 function cleanup() {
     if [ ! $BUILD_DIR == '' ]; then
-        rm -rf $BUILD_DIR
+        sudo rm -rf $BUILD_DIR
     fi
 }
 
@@ -41,7 +41,7 @@ function install_pigpio() {
 function install() {
     cleanup
 
-    if [[ ! $(is_lib_installed 'wiringpi') ]]; then
+    if [[ ! $(is_lib_installed 'wiringPi') ]]; then
         echo "installing wiringpi..."
         install_wiringpi
     fi
@@ -50,13 +50,15 @@ function install() {
         echo "installing pigpio..."
         install_pigpio
     fi
-     
-    if [[ $(build) == 0 ]]; then
+
+    build
+
+    if [[ $? == 0 ]]; then
         echo "copying to /usr/local/lib"
-        cp $SO_NAME /usr/local/lib/libsonic.so
+        sudo cp $SO_NAME /usr/local/lib/libsonic.so
 
         echo "setting user rights..."
-        chmod 0755 /usr/local/lib/libsonic.so
+        sudo chmod 0755 /usr/local/lib/libsonic.so
     else
         echo "errors occurred. stopping installation."
     fi
