@@ -7,4 +7,4 @@
     * Installpage: http://abyz.me.uk/rpi/pigpio/download.html
 * Installation
     * sudo chmod u+x install
-    * sudo install
+    * sudo ./install
