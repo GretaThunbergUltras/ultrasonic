@@ -27,6 +27,14 @@ function is_lib_installed() {
 
 function install_wiringpi() {
     echo "wiringpi should be preinstalled on raspbian."
+    mkdir -p "$BUILD_DIR/"
+    pushd "$BUILD_DIR/"
+
+    git clone https://github.com/WiringPi/WiringPi wiringpi
+    cd wiringpi
+    ./build
+
+    popd
 }
 
 function install_pigpio() {
