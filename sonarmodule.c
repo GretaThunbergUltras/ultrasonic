@@ -3,7 +3,7 @@
 #include <Python.h>
 #include "sonic.h"
 
-PyObject*
+static PyObject*
 sonar_measure(PyObject* self, PyObject* args);
 
 static PyMethodDef
