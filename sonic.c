@@ -87,8 +87,6 @@ void initialize()
    gpioSetMode(25, PI_INPUT); // Set pull down on board.
    gpioSetAlertFunc(25, ISR); // Init ISR.
    handle = wiringPiI2CSetup(ADDRESS);
-
-   printf("inti");
 }
 
 int main(int argc, char *argv[])
