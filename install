@@ -62,6 +62,7 @@ function install() {
 
         echo "setting user rights..."
         sudo chmod 0755 /usr/local/lib/libsonic.so
+        sudo chmod 0755 /usr/local/include/sonic.h
     else
         echo "errors occurred. stopping installation."
     fi
