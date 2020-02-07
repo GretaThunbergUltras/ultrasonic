@@ -57,6 +57,9 @@ function install() {
         echo "copying to /usr/local/lib"
         sudo cp $SO_NAME /usr/local/lib/libsonic.so
 
+        echo "copying to /usr/local/include"
+        sudo cp sonic.h "/usr/local/include/sonic.h"
+
         echo "setting user rights..."
         sudo chmod 0755 /usr/local/lib/libsonic.so
     else
